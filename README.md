@@ -25,8 +25,25 @@ The experiments include:
 
 ```text
 .
-├── requirements.txt
+├── png
+│   ├── figure1.png
+│   ├── figure2.png
+│   └── figure3.png
+├── results
+│   ├── pgafno_visualizations_selected_channels
+│   │   ├── Ch_23_850hPa_Temperature
+│   │   ├── Ch_29_200hPa_U-component_of_wind
+│   │   ├── Ch_38_1000hPa_U-component_of_wind
+│   │   ├── Ch_47_600hPa_V-component_of_wind
+│   │   ├── Ch_62_850hPa_Specific_Humidity
+│   │   ├── Ch_66_2m_U-component_of_wind
+│   │   ├── Ch_67_2m_V-component_of_wind
+│   │   └── Ch_8_600hPa_Geopotential
+│   └── pgafno_results_all_69.txt
+├── LICENSE
 ├── README.md
+├── requirements.txt
+├── prepare_era5_pgafno_dataset.py
 ├── models_1to69_pgafno.py
 ├── dataloader_1to69_pgafno.py
 ├── train_1to69_pgafno.py
@@ -43,6 +60,10 @@ The experiments include:
 ├── figure3_ground_truth_vertical_sections_pgafno.py
 └── physical_validation_pgafno.py
 ```
+
+The `png/` directory contains the final manuscript figures currently used in the paper.
+
+The `results/` directory stores selected visualization outputs and summary result files from the retained PG-AFNO experiments.
 
 ## Data preparation
 
@@ -81,13 +102,13 @@ python prepare_era5_pgafno_dataset.py \
   --out-dir path/to/normalized_yearly_npy \
   --cds-url https://cds.climate.copernicus.eu/api \
   --cds-key YOUR_UID:YOUR_API_KEY
+```
 
 ## Environment
 
 Create a Python environment and install dependencies:
 
 ```bash
-action(){ :; }
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
@@ -151,13 +172,18 @@ python figure2_threshold_curve_pgafno.py
 Generate Figure 2 spectral diagnostics:
 
 ```bash
-python figure2_spectral_diagnostics_pgafno.py --ckpt path/to/checkpoints/best_model.pth --out_dir path/to/output/figure2
+python figure2_spectral_diagnostics_pgafno.py \
+  --ckpt path/to/checkpoints/best_model.pth \
+  --out_dir path/to/output/figure2
 ```
 
 Generate Figure 3 predicted case panels:
 
 ```bash
-python figure3_case_panels_pgafno.py --ckpt path/to/checkpoints/best_model.pth --case_dir path/to/case_indices --out_dir path/to/output/figure3
+python figure3_case_panels_pgafno.py \
+  --ckpt path/to/checkpoints/best_model.pth \
+  --case_dir path/to/case_indices \
+  --out_dir path/to/output/figure3
 ```
 
 Generate Figure 3 ground-truth synoptic panels:
@@ -175,7 +201,10 @@ python figure3_ground_truth_vertical_sections_pgafno.py
 Run physical validation:
 
 ```bash
-python physical_validation_pgafno.py --task all --ckpt path/to/checkpoints/best_model.pth --out_dir path/to/output/physical_validation
+python physical_validation_pgafno.py \
+  --task all \
+  --ckpt path/to/checkpoints/best_model.pth \
+  --out_dir path/to/output/physical_validation
 ```
 
 ## Reproducibility notes
@@ -187,13 +216,13 @@ python physical_validation_pgafno.py --task all --ckpt path/to/checkpoints/best_
 
 ## Citation
 
-If you use this code, please cite the associated manuscript and archive record.
+If you use this repository, please cite the associated manuscript.
 
-You may also add a `CITATION.cff` file after creating the repository archive and DOI.
+A Zenodo archive DOI will be added after the first public release is archived.
 
 ## License
 
-Choose a license before making the repository public. For research code, a permissive license such as MIT or BSD-3-Clause is often used when redistribution is intended.
+This repository is released under the license specified in the `LICENSE` file.
 
 ## Notes
 
